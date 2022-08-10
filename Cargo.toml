@@ -1,0 +1,44 @@
+[package]
+name = "wgpu_example"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[example]]
+name = "cube"
+# crate-type = ["cdylib"]
+
+[dev-dependencies]
+wgpu = "0.13"
+winit = "0.26"
+raw-window-handle = "0.4.3"
+
+log = "0.4"
+env_logger = "0.9"
+
+bytemuck = { version = "1.11", features = ["derive"] }
+glam = "0.21"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+async-executor = "1.0"
+pollster = "0.2"
+
+[target.'cfg(target_os = "android")'.dev-dependencies]
+jni = "0.19"
+libc = "0.2"
+
+ndk = "0.7"
+ndk-glue = {version = "0.7", features = ["logger"] }
+
+[package.metadata.android.sdk]
+min_sdk_version = 23
+target_sdk_version = 29
+
+[package.metadata.android]
+# Specifies the package property of the manifest.
+package = "com.wgpu.demo"
+
+[package.metadata.android.signing.release]
+path = "test.keystore"
+keystore_password = "123456"
